@@ -5,6 +5,8 @@
 	<title>Home</title>
 </head>
 <body>
+	<a href="notice/NoticeList">notice</a>
+	
 <h1>
 	Hello world!  
 </h1>
