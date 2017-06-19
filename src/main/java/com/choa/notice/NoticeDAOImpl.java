@@ -172,7 +172,7 @@ public class NoticeDAOImpl implements BoardDAO {
 	}
 
 
-
+	//hit
 	@Override
 	public int boardhit(int num) throws Exception {
 		Connection con =dataSource.getConnection();

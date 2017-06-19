@@ -5,14 +5,14 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.choa.freeboard.FreeboardService;
+import com.choa.freeboard.FreeboardServiceImpl;
 
 @Controller
 @RequestMapping(value="/freeboard/**")
 public class FreeboardController {
 	
 	@Inject
-	private FreeboardService freeboardService;
+	private FreeboardServiceImpl freeboardService;
 	
 	@RequestMapping(value="test")
 	public void test(){

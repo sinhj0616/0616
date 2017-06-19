@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.choa.board.BoardDTO;
 import com.choa.notice.NoticeDTO;
 import com.choa.notice.NoticeServiceImpl;
+import com.choa.util.RowMaker;
 
 @Controller
 @RequestMapping(value="/board/**")
@@ -28,7 +30,7 @@ public class NoticeController {
 	//list
 	@RequestMapping(value="NoticeList" , method=RequestMethod.GET)
 	public String NoticeList(Model model, @RequestParam(defaultValue="1")Integer curPage)throws Exception{
-		List<NoticeDTO> ar =noticeService.
+		List<BoardDTO> ar =noticeService.boardList(curPage);
 		model.addAttribute("list", ar);
 		model.addAttribute("board","notice");
 		return "board/boardList";
@@ -36,12 +38,13 @@ public class NoticeController {
 	
 	@RequestMapping(value="NoticeView" , method=RequestMethod.GET)
 	public void NoticeView(Model model,Integer num)throws Exception{
-	/*	if(num==null){
-			
-		}*/
-		NoticeDTO noticeDTO=noticeService.noticeView(num);
+	
+		BoardDTO noticeDTO=noticeService.boardView(num);
 		model.addAttribute("dto", noticeDTO);
 		//if 성공 실패
+		/*	if(num==null){
+		
+		}*/
 		
 	}
 	//writeForm
@@ -55,19 +58,19 @@ public class NoticeController {
 	//write
 	@RequestMapping(value="NoticeWrite" , method=RequestMethod.POST)
 	public String NoticeWrite(NoticeDTO noticeDTO , RedirectAttributes rd)throws Exception{
-		int result=noticeService.noticeWrite(noticeDTO);
+		int result=noticeService.boardWrite(noticeDTO);
 		String message ="fail";
 		if(result>0){
 			message ="success";
 		}
 		//if 성공 실패
 		rd.addFlashAttribute("message", message);
-		return "redirect:NoticeList?curPage=2";
+		return "redirect:NoticeList?curPage=1";
 	}
 	//updateForm
 		@RequestMapping(value="NoticeUpdate", method=RequestMethod.GET)
 		public String noticeUpdate(Integer num, Model model) throws Exception{
-			NoticeDTO noticeDTO = noticeService.noticeView(num);
+			BoardDTO noticeDTO = noticeService.boardView(num);
 			model.addAttribute("dto", noticeDTO);
 			model.addAttribute("path", "Update");
 			return "notice/NoticeWrite";
@@ -77,7 +80,7 @@ public class NoticeController {
 	//update
 	@RequestMapping(value="NoticeUpdate", method=RequestMethod.POST)
 	public String noticeUpdate(NoticeDTO noticeDTO, RedirectAttributes rd) throws Exception{
-		int result = noticeService.noticeUpdate(noticeDTO);
+		int result = noticeService.boardUpdate(noticeDTO);
 		System.out.println("값:" + noticeDTO);
 		String message = "FAIL";
 		if(result>0){
@@ -89,7 +92,7 @@ public class NoticeController {
 	
 	@RequestMapping(value="NoticeDelete" , method=RequestMethod.GET)
 	public String NoticeDelete(Integer num , RedirectAttributes rd)throws Exception{
-		int result =noticeService.noticeDelete(num);
+		int result =noticeService.boardDelete(num);
 		String message = "failed";
 		//if 성공 실패
 		if(result>0){
