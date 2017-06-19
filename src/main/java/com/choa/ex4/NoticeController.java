@@ -19,7 +19,7 @@ import com.choa.notice.NoticeServiceImpl;
 import com.choa.util.RowMaker;
 
 @Controller
-@RequestMapping(value="/board/**")
+@RequestMapping(value="/notice/**")
 public class NoticeController {
 	
 	@Inject  //type
