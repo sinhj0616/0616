@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import com.choa.board.BoardDAO;
 import com.choa.board.BoardDTO;
 import com.choa.util.DBConnect;
+import com.choa.util.ListInfo;
 import com.choa.util.RowMaker;
 
 import oracle.jdbc.proxy.annotation.Pre;
@@ -48,8 +49,8 @@ public class NoticeDAOImpl implements BoardDAO {
 	//TotalCount
 	
 	@Override
-	public int boardCount()throws Exception{
-		return sqlSession.selectOne(NAMESPACE+"count");
+	public int boardCount(ListInfo listInfo)throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"count", listInfo);
 		
 		
 	}
@@ -59,12 +60,14 @@ public class NoticeDAOImpl implements BoardDAO {
 	//List 
 	
 	@Override
-	public List<BoardDTO> boardList(RowMaker rowMaker, String search, String find)throws Exception{
-		HashMap<String, Object> map =new HashMap<String, Object>();
+	public List<BoardDTO> boardList(ListInfo listInfo)throws Exception{
+		
+		return sqlSession.selectList(NAMESPACE+"list", listInfo);
+		
+	/*	HashMap<String, Object> map =new HashMap<String, Object>();
 		map.put("rowMaker", rowMaker);
 		map.put("search", search);
-		map.put("find", find);
-		return sqlSession.selectList(NAMESPACE+"list", map);
+		map.put("find", find);*/
 	
 	}
 	
@@ -102,17 +105,7 @@ public class NoticeDAOImpl implements BoardDAO {
 	
 	@Override
 	public int boardhit(int num) throws Exception {
-		Connection con = null;
-		PreparedStatement st =null;
-		int result =0;
 		
-		String sql="update notice set hit=hit+1 where num=? ";
-		st =con.prepareStatement(sql);
-		st.setInt(1, num);
-		result =st.executeUpdate();
-
-		DBConnect.disConnect(st, con);
-		
-		return result;
+		return sqlSession.update(NAMESPACE+"hit", num);
 	}
 }

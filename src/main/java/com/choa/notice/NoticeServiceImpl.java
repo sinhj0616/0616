@@ -8,10 +8,12 @@ import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.ls.LSInput;
 
 import com.choa.board.BoardDAO;
 import com.choa.board.BoardDTO;
 import com.choa.board.BoardService;
+import com.choa.util.ListInfo;
 import com.choa.util.PageMaker;
 import com.choa.util.RowMaker;
 
@@ -39,10 +41,12 @@ public class NoticeServiceImpl implements BoardService{
 	
 
 	@Override
-	public List<BoardDTO> boardList(int curPage, String search , String find) throws Exception {
-		int result =noticeDAO.boardCount();
-		PageMaker pageMaker =new PageMaker(curPage);
-		return noticeDAO.boardList(pageMaker.getRowMaker(), search ,find);
+	public List<BoardDTO> boardList(ListInfo listInfo) throws Exception {
+		int result =noticeDAO.boardCount(listInfo);
+		listInfo.makePage(result);
+		listInfo.setRow();
+		
+		return noticeDAO.boardList(listInfo);
 	}
 
 	@Override

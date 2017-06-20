@@ -2,12 +2,13 @@ package com.choa.board;
 
 import java.util.List;
 
+import com.choa.util.ListInfo;
 import com.choa.util.RowMaker;
 
 public interface BoardService {
 
 		//list 
-		public List<BoardDTO> boardList(int curPage, String search ,String kind)throws Exception;
+		public List<BoardDTO> boardList(ListInfo listInfo)throws Exception;
 				
 		
 		//view

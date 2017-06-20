@@ -21,8 +21,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.w3c.dom.ls.LSInput;
 
 import com.choa.board.BoardDTO;
+import com.choa.util.ListInfo;
 import com.choa.util.PageMaker;
 
 
@@ -50,12 +52,18 @@ public class NoticeDAOImplTest extends MyAbstractClass{
 	*/
 	@Test
 	public void connectionTest()throws Exception{
-		PageMaker pageMaker =new PageMaker(1);
+		ListInfo listInfo =new ListInfo();
+		listInfo.setFind("choa");
+		listInfo.setSearch("writer");
+		int count = dao.boardCount(listInfo);
+		System.out.println(listInfo);
 		
-		List<BoardDTO> ar =dao.boardList(pageMaker.getRowMaker(), "writer", "iu");
+		/*PageMaker pageMaker =new PageMaker(1);*/
+		
+		/*List<BoardDTO> ar =dao.boardList(pageMaker.getRowMaker(), "writer", "iu");
 		System.out.println(ar.get(0).getTitle());
-		System.out.println(ar.get(1).getTitle());
-		assertNotEquals(0, ar.size());
+		System.out.println(ar.get(1).getTitle());*/
+		assertNotEquals(0, count);
 	}
 /*	@Test
 	public void counttest()throws Exception{

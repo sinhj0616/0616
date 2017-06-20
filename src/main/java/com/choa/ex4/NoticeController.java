@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.choa.board.BoardDTO;
 import com.choa.notice.NoticeDTO;
 import com.choa.notice.NoticeServiceImpl;
+import com.choa.util.ListInfo;
 import com.choa.util.RowMaker;
 
 import oracle.net.aso.f;
@@ -32,13 +33,17 @@ public class NoticeController {
 
 	//list
 	@RequestMapping(value="NoticeList" , method=RequestMethod.GET)
-	public String NoticeList(Model model, @RequestParam(defaultValue="1")Integer curPage, @RequestParam(defaultValue="title")String search, @RequestParam(defaultValue="")String find)throws Exception{
-		List<BoardDTO> ar =noticeService.boardList(curPage, search, find);
+	public String NoticeList(Model model, ListInfo listInfo)throws Exception{
+		System.out.println(listInfo.getCurPage());
+		List<BoardDTO> ar =noticeService.boardList(listInfo);
 		model.addAttribute("list", ar);
-		model.addAttribute("board","notice");
+		model.addAttribute("board","Notice");
+		model.addAttribute("listInfo", listInfo);
+		/*model.addAttribute("list", ar);
+		model.addAttribute("board","Notice");
 		model.addAttribute("curPage", curPage);
 		model.addAttribute("search", search);
-		model.addAttribute("find", find);
+		model.addAttribute("find", find);*/
 		return "board/boardList";
 	}
 	
