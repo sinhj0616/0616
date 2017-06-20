@@ -39,10 +39,10 @@ public class NoticeServiceImpl implements BoardService{
 	
 
 	@Override
-	public List<BoardDTO> boardList(int curPage) throws Exception {
+	public List<BoardDTO> boardList(int curPage, String search , String find) throws Exception {
 		int result =noticeDAO.boardCount();
 		PageMaker pageMaker =new PageMaker(curPage);
-		return noticeDAO.boardList(pageMaker.getRowMaker());
+		return noticeDAO.boardList(pageMaker.getRowMaker(), search ,find);
 	}
 
 	@Override

@@ -5,6 +5,7 @@ package com.choa.ex4;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,8 @@ import com.choa.notice.NoticeDTO;
 import com.choa.notice.NoticeServiceImpl;
 import com.choa.util.RowMaker;
 
+import oracle.net.aso.f;
+
 @Controller
 @RequestMapping(value="/notice/**")
 public class NoticeController {
@@ -29,10 +32,13 @@ public class NoticeController {
 
 	//list
 	@RequestMapping(value="NoticeList" , method=RequestMethod.GET)
-	public String NoticeList(Model model, @RequestParam(defaultValue="1")Integer curPage)throws Exception{
-		List<BoardDTO> ar =noticeService.boardList(curPage);
+	public String NoticeList(Model model, @RequestParam(defaultValue="1")Integer curPage, @RequestParam(defaultValue="title")String search, @RequestParam(defaultValue="")String find)throws Exception{
+		List<BoardDTO> ar =noticeService.boardList(curPage, search, find);
 		model.addAttribute("list", ar);
 		model.addAttribute("board","notice");
+		model.addAttribute("curPage", curPage);
+		model.addAttribute("search", search);
+		model.addAttribute("find", find);
 		return "board/boardList";
 	}
 	

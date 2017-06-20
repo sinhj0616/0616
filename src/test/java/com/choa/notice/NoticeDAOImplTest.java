@@ -50,13 +50,14 @@ public class NoticeDAOImplTest extends MyAbstractClass{
 	*/
 	@Test
 	public void connectionTest()throws Exception{
-		PageMaker pageMaker =new PageMaker(1, 5);
+		PageMaker pageMaker =new PageMaker(1);
 		
-		List<BoardDTO> ar =dao.boardList(pageMaker.getRowMaker());
-		
+		List<BoardDTO> ar =dao.boardList(pageMaker.getRowMaker(), "writer", "iu");
+		System.out.println(ar.get(0).getTitle());
+		System.out.println(ar.get(1).getTitle());
 		assertNotEquals(0, ar.size());
 	}
-	@Test
+/*	@Test
 	public void counttest()throws Exception{
 		int count =dao.boardCount();
 		assertNotEquals(0, count);
@@ -85,7 +86,7 @@ public class NoticeDAOImplTest extends MyAbstractClass{
 		System.out.println(result);
 		assertEquals(0, result);
 		
-	}
+	}*/
 		
 }
 	

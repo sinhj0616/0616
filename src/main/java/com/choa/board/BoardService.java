@@ -7,7 +7,7 @@ import com.choa.util.RowMaker;
 public interface BoardService {
 
 		//list 
-		public List<BoardDTO> boardList(int curPage)throws Exception;
+		public List<BoardDTO> boardList(int curPage, String search ,String kind)throws Exception;
 				
 		
 		//view
